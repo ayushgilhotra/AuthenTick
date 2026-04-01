@@ -19,7 +19,7 @@ public class VerifyService {
     private final ProductRepository productRepository;
     private final ScanLogRepository scanLogRepository;
 
-    public VerifyResponse verify(String token, String ipAddress, String userAgent) {
+    public VerifyResponse verify(String token, String ipAddress, String userAgent, Long userId) {
         Optional<Product> productOpt = productRepository.findByToken(token);
 
         if (productOpt.isEmpty()) {
@@ -35,33 +35,33 @@ public class VerifyService {
 
         // Check recalled
         if (Boolean.TRUE.equals(batch.getIsRecalled())) {
-            logScan(product, ipAddress, userAgent);
+            logScan(product, ipAddress, userAgent, userId);
             return buildResponse(product, medicine, batch, "recalled",
                     "This medicine has been recalled by the manufacturer. Please stop using it immediately.");
         }
 
         // Check expiry
         if (batch.getExpiryDate() != null && batch.getExpiryDate().isBefore(LocalDate.now())) {
-            logScan(product, ipAddress, userAgent);
+            logScan(product, ipAddress, userAgent, userId);
             return buildResponse(product, medicine, batch, "expired",
                     "This medicine has expired. Do not use it.");
         }
 
         // Check duplicate (flag immediately if scanned before)
         if (product.getScanCount() != null && product.getScanCount() > 0) {
-            logScan(product, ipAddress, userAgent);
+            logScan(product, ipAddress, userAgent, userId);
             return buildResponse(product, medicine, batch, "suspicious",
                     "DUPLICATE SCAN DETECTED. This product was already verified on " + 
                     product.getCreatedAt().toLocalDate() + ". It may be a duplicate.");
         }
 
         // Genuine
-        logScan(product, ipAddress, userAgent);
+        logScan(product, ipAddress, userAgent, userId);
         return buildResponse(product, medicine, batch, "genuine",
                 "This medicine is verified as genuine.");
     }
 
-    private void logScan(Product product, String ipAddress, String userAgent) {
+    private void logScan(Product product, String ipAddress, String userAgent, Long userId) {
         // Get location from IP
         String city = "Unknown";
         String country = "Unknown";
@@ -96,6 +96,7 @@ public class VerifyService {
                 .country(country)
                 .userAgent(userAgent)
                 .deviceType(deviceType)
+                .userId(userId)
                 .build();
         scanLogRepository.save(log);
 

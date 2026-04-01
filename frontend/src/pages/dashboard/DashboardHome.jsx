@@ -4,12 +4,20 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getStats, getScanActivity, getRecentScans } from '../../api';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { useAuth } from '../../context/AuthContext';
+import ScanHistory from './ScanHistory';
 
 export default function DashboardHome() {
+  const { user } = useAuth();
   const [stats, setStats] = useState(null);
   const [activity, setActivity] = useState([]);
   const [recent, setRecent] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Retailers see scan history as their dashboard home
+  if (user?.role === 'RETAILER') {
+    return <ScanHistory />;
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +47,7 @@ export default function DashboardHome() {
     <motion.div 
       initial={{ opacity: 0, y: 10 }} 
       animate={{ opacity: 1, y: 0 }} 
-      className="space-y-12"
+      className="space-y-6"
     >
       <div className="flex justify-between items-end pb-4 border-b border-gray-100">
         <div>
@@ -64,7 +72,7 @@ export default function DashboardHome() {
     </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {[
           { label: 'Total Products', value: stats?.totalMedicines || 0, icon: '💊', color: 'text-primary' },
           { label: 'Network Batches', value: stats?.totalBatches || 0, icon: '📦', color: 'text-indigo-600' },
@@ -84,7 +92,7 @@ export default function DashboardHome() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Activity Chart */}
         <div className="lg:col-span-2 saas-card p-10">
           <div className="flex justify-between items-center mb-10">

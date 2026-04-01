@@ -52,4 +52,10 @@ export const updatePassword = (data) => api.put('/settings/password', data);
 // Contact
 export const submitContact = (data) => api.post('/contact', data);
 
+// Scan History
+export const getScanHistory = () => api.get('/scan-history');
+
+// Account
+export const deleteAccount = () => api.delete('/settings/account');
+
 export default api;

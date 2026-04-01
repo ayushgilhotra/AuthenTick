@@ -34,6 +34,9 @@ public class ScanLog {
     @Column(name = "device_type")
     private String deviceType;
 
+    @Column(name = "user_id")
+    private Long userId;
+
     @PrePersist
     protected void onCreate() {
         scannedAt = LocalDateTime.now();

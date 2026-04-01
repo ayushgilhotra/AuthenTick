@@ -7,5 +7,6 @@ public class RegisterRequest {
     private String name;
     private String email;
     private String password;
-    private String role; // ADMIN or RETAILER
+    private String role; // ADMIN, RETAILER, or CUSTOMER
+    private String phone; // optional, for CUSTOMER
 }

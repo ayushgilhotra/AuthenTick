@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 const adminLinks = [
@@ -17,7 +17,14 @@ const retailerLinks = [
 export default function Dashboard() {
   const { user } = useAuth();
   const location = useLocation();
+
+  // Redirect customers to their own dashboard
+  if (user?.role === 'CUSTOMER') {
+    return <Navigate to="/customer" replace />;
+  }
+
   const links = user?.role === 'ADMIN' ? adminLinks : retailerLinks;
+  const roleLabel = user?.role === 'ADMIN' ? 'Manufacturer' : 'Retailer';
 
   return (
     <div 
@@ -29,35 +36,80 @@ export default function Dashboard() {
         style={{ width: '288px', flexShrink: 0 }}
         className="bg-white border-r border-gray-100 hidden md:block sticky top-0 h-screen z-40"
       >
-        <div className="p-8 pt-[20px] space-y-8">
-          <div className="flex items-center gap-3 px-2">
-            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+        <div style={{ padding: '24px 20px', display: 'flex', flexDirection: 'column', gap: '28px', height: '100%' }}>
+          {/* User Info Card */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            padding: '16px',
+            background: '#F8FAFC',
+            borderRadius: '14px',
+            border: '1px solid #F1F5F9',
+          }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              borderRadius: '12px',
+              background: 'linear-gradient(135deg, #2563EB, #1D4ED8)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white',
+              fontWeight: 800,
+              fontSize: '15px',
+              flexShrink: 0,
+            }}>
+              {user?.name?.charAt(0)?.toUpperCase()}
             </div>
-            <div className="min-w-0">
-              <p className="text-[10px] font-bold text-gray uppercase tracking-widest leading-none mb-1">Authenticated</p>
-              <p className="text-sm font-bold text-dark truncate">{user?.name}</p>
+            <div style={{ minWidth: 0 }}>
+              <p style={{ fontSize: '10px', fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.1em', lineHeight: 1, margin: '0 0 5px 0' }}>{roleLabel}</p>
+              <p style={{ fontSize: '14px', fontWeight: 700, color: '#0F172A', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user?.name}</p>
             </div>
           </div>
 
-          <nav className="space-y-1">
-            <p className="px-2 text-[10px] font-bold text-gray/40 uppercase tracking-widest mb-4">Management</p>
+          {/* Navigation */}
+          <nav style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <p style={{ padding: '0 8px', fontSize: '10px', fontWeight: 700, color: 'rgba(148,163,184,0.5)', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '12px' }}>
+              {user?.role === 'ADMIN' ? 'Management' : 'Verification'}
+            </p>
             {links.map(link => {
               const isActive = location.pathname === link.path;
               return (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`flex items-center gap-4 px-3 py-3 rounded-xl transition-all no-underline group ${
-                    isActive
-                       ? 'bg-primary text-white shadow-md shadow-primary/20'
-                       : 'text-gray hover:text-dark hover:bg-gray-50'
-                  }`}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '14px',
+                    padding: '12px 14px',
+                    borderRadius: '12px',
+                    textDecoration: 'none',
+                    transition: 'all 0.2s ease',
+                    background: isActive ? '#2563EB' : 'transparent',
+                    color: isActive ? 'white' : '#64748B',
+                    boxShadow: isActive ? '0 4px 12px rgba(37,99,235,0.2)' : 'none',
+                    fontWeight: isActive ? 700 : 500,
+                    fontSize: '14px',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.background = '#F8FAFC';
+                      e.currentTarget.style.color = '#0F172A';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.background = 'transparent';
+                      e.currentTarget.style.color = '#64748B';
+                    }
+                  }}
                 >
-                  <svg className={`w-5 h-5 ${isActive ? 'text-white' : 'text-gray/50 group-hover:text-primary'} transition-colors`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg style={{ width: '20px', height: '20px', flexShrink: 0, color: isActive ? 'white' : '#94A3B8' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={link.icon} />
                   </svg>
-                  <span className={`text-sm ${isActive ? 'font-bold' : 'font-medium'}`}>{link.label}</span>
+                  <span>{link.label}</span>
                 </Link>
               );
             })}

@@ -28,6 +28,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private String phone;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
@@ -37,6 +39,6 @@ public class User {
     }
 
     public enum Role {
-        ADMIN, RETAILER
+        ADMIN, RETAILER, CUSTOMER
     }
 }

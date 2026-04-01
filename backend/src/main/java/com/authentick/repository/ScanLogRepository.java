@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ScanLogRepository extends JpaRepository<ScanLog, Long> {
     List<ScanLog> findByProductOrderByScannedAtDesc(Product product);
+    List<ScanLog> findByUserIdOrderByScannedAtDesc(Long userId);
 
     @Query("SELECT s FROM ScanLog s ORDER BY s.scannedAt DESC")
     List<ScanLog> findRecentScans();

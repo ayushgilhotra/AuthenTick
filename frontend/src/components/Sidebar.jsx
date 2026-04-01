@@ -34,13 +34,8 @@ export default function Sidebar({ isOpen, onClose }) {
             {/* Header */}
             <div className="p-[var(--spacing-fluid-md)] flex items-center justify-between">
               <Link to="/" className="flex items-center space-x-3 no-underline group" onClick={onClose}>
-                <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
-                  <svg className="w-6 h-6 text-white relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <span className="text-fluid-lg font-black text-dark tracking-tighter">AuthenTick</span>
+                <img src="/logo.svg" alt="AuthenTick" style={{ width: '40px', height: '40px' }} className="group-hover:scale-105 transition-transform" />
+                <span style={{ fontSize: '18px', fontWeight: 500, color: '#1E293B', fontFamily: "'Inter', sans-serif", letterSpacing: '-0.01em' }}>Authen<span style={{ fontWeight: 700, color: '#2563EB' }}>Tick</span></span>
               </Link>
               <button onClick={onClose} className="p-2 text-gray hover:text-dark rounded-full hover:bg-gray-100 transition-all active:scale-90">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

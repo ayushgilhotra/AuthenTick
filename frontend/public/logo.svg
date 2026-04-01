@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" fill="none">
+  <defs>
+    <clipPath id="shield">
+      <path d="M100 8C100 8 16 8 16 30V100C16 156 56 192 100 212C144 192 184 156 184 100V30C184 8 100 8 100 8Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Shield Left Half - Darker Blue -->
+  <path d="M24 16C16 16 8 24 8 32V104C8 160 48 196 100 216V8H24Z" fill="#1A3B7A"/>
+  <!-- Shield Right Half - Brighter Blue -->
+  <path d="M100 8V216C152 196 192 160 192 104V32C192 24 184 16 176 16H100Z" fill="#2563EB"/>
+
+  <!-- Subtle vertical divider -->
+  <line x1="100" y1="10" x2="100" y2="214" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+
+  <!-- QR Code Fragment - WHITE on blue background -->
+  <!-- Finder Square 1 (top-left) -->
+  <rect x="32" y="38" width="30" height="30" rx="3" fill="#FFFFFF"/>
+  <rect x="38" y="44" width="18" height="18" rx="2" fill="#1A3B7A"/>
+  <rect x="43" y="49" width="8" height="8" rx="1.5" fill="#FFFFFF"/>
+
+  <!-- Finder Square 2 (top-right, still on left half) -->
+  <rect x="68" y="38" width="26" height="26" rx="3" fill="#FFFFFF"/>
+  <rect x="73" y="43" width="16" height="16" rx="2" fill="#1A3B7A"/>
+  <rect x="77.5" y="47.5" width="7" height="7" rx="1.5" fill="#FFFFFF"/>
+
+  <!-- Finder Square 3 (bottom-left) -->
+  <rect x="32" y="74" width="26" height="26" rx="3" fill="#FFFFFF"/>
+  <rect x="37" y="79" width="16" height="16" rx="2" fill="#1A3B7A"/>
+  <rect x="41.5" y="83.5" width="7" height="7" rx="1.5" fill="#FFFFFF"/>
+
+  <!-- QR data dots - white -->
+  <rect x="68" y="70" width="5" height="5" rx="1" fill="#FFFFFF"/>
+  <rect x="78" y="78" width="5" height="5" rx="1" fill="#FFFFFF"/>
+  <rect x="68" y="86" width="5" height="5" rx="1" fill="#FFFFFF"/>
+  <rect x="86" y="70" width="5" height="5" rx="1" fill="#FFFFFF"/>
+  <rect x="78" y="86" width="4" height="4" rx="1" fill="#FFFFFF"/>
+
+  <!-- Checkmark - thick stroke with rounded caps, matching reference exactly -->
+  <g clip-path="url(#shield)">
+    <polyline
+      points="46,142 82,178 164,86"
+      fill="none"
+      stroke="#FFFFFF"
+      stroke-width="24"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </g>
+</svg>

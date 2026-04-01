@@ -39,6 +39,12 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/reports").permitAll()
                 .requestMatchers("/api/contact").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
+                // Role-based restrictions
+                .requestMatchers("/api/medicines/**").hasRole("ADMIN")
+                .requestMatchers("/api/batches/**").hasRole("ADMIN")
+                .requestMatchers("/api/products/**").hasRole("ADMIN")
+                .requestMatchers("/api/analytics/**").hasRole("ADMIN")
+                .requestMatchers("/api/scan-history").authenticated()
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll()
             )

@@ -26,8 +26,8 @@ public class DataSeeder implements CommandLineRunner {
 
         // Create demo admin
         User admin = User.builder()
-                .name("Admin Demo")
-                .email("admin@authentick.com")
+                .name("xyz Pharma Pvt. Ltd.")
+                .email("xyz@organisation.in")
                 .password(passwordEncoder.encode("admin123"))
                 .role(User.Role.ADMIN)
                 .build();
@@ -41,6 +41,16 @@ public class DataSeeder implements CommandLineRunner {
                 .role(User.Role.RETAILER)
                 .build();
         userRepository.save(retailer);
+
+        // Create demo customer
+        User customer = User.builder()
+                .name("xyz")
+                .email("xyz@gmail.com")
+                .password(passwordEncoder.encode("demo123"))
+                .role(User.Role.CUSTOMER)
+                .phone("98765*****")
+                .build();
+        userRepository.save(customer);
 
         // Create demo medicines
         String[][] meds = {
@@ -132,7 +142,8 @@ public class DataSeeder implements CommandLineRunner {
         }
 
         System.out.println("✅ Demo data seeded successfully!");
-        System.out.println("   Admin: admin@authentick.com / admin123");
+        System.out.println("   Admin (Manufacturer): xyz@organisation.in / admin123");
         System.out.println("   Retailer: retailer@authentick.com / retailer123");
+        System.out.println("   Customer: xyz@gmail.com / demo123");
     }
 }

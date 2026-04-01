@@ -16,13 +16,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-[var(--spacing-fluid-lg)] mb-[var(--spacing-fluid-xl)]">
           <div className="col-span-1 md:col-span-1">
             <Link to="/" className="flex items-center space-x-3 mb-8 no-underline group">
-              <div className="w-11 h-11 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
-                <svg className="w-6 h-6 text-white relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <span className="text-xl font-black text-white tracking-tighter">AuthenTick</span>
+              <img src="/logo.svg" alt="AuthenTick" style={{ width: '44px', height: '44px' }} className="group-hover:scale-110 transition-transform" />
+              <span style={{ fontSize: '20px', fontWeight: 500, color: '#FFFFFF', fontFamily: "'Inter', sans-serif", letterSpacing: '-0.01em' }}>Authen<span style={{ fontWeight: 700, color: '#93B4F8' }}>Tick</span></span>
             </Link>
             <p className="text-gray-light/50 leading-relaxed text-fluid-sm font-medium">
               Architecting a secure future for global medicine distribution through immutable digital verification protocols.

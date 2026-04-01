@@ -28,6 +28,9 @@ public class Report {
     @Column(name = "reporter_email")
     private String reporterEmail;
 
+    @Column(name = "user_id")
+    private Long userId;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ReportStatus status = ReportStatus.PENDING;

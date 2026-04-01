@@ -80,7 +80,7 @@ export default function Navbar() {
   };
 
   const hamburgerBtnStyle = {
-    display: isAuthenticated ? 'flex' : 'none',
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     width: '40px',
@@ -175,27 +175,17 @@ export default function Navbar() {
     color: isRed ? '#EF4444' : '#64748B',
   });
 
-  // Menu items configuration
-  const menuItems = [
+  // Public menu items (visible to everyone)
+  const publicMenuItems = [
     {
-      label: 'Control Panel',
-      to: '/dashboard',
+      label: 'Home',
+      to: '/',
       icon: (
         <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
         </svg>
       ),
     },
-    {
-      label: 'Configuration',
-      to: '/settings',
-      icon: (
-        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 002.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-      ),
-    },
-    'divider',
     {
       label: 'Verify',
       to: '/verify',
@@ -223,50 +213,78 @@ export default function Navbar() {
         </svg>
       ),
     },
-    'divider',
+  ];
+
+  // Authenticated-only menu items
+  const dashboardPath = user?.role === 'CUSTOMER' ? '/customer' : '/dashboard';
+  const authMenuItems = [
     {
-      label: 'Terminate Session',
-      action: handleLogout,
-      isRed: true,
+      label: user?.role === 'CUSTOMER' ? 'My Dashboard' : 'Control Panel',
+      to: dashboardPath,
       icon: (
         <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+        </svg>
+      ),
+    },
+    {
+      label: 'Configuration',
+      to: '/settings',
+      icon: (
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 002.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
       ),
     },
   ];
 
+  // Build final menu items based on auth state
+  const menuItems = isAuthenticated
+    ? [
+        ...authMenuItems,
+        'divider',
+        ...publicMenuItems.filter(i => i.label !== 'Home'),
+        'divider',
+        {
+          label: 'Terminate Session',
+          action: handleLogout,
+          isRed: true,
+          icon: (
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+          ),
+        },
+      ]
+    : [
+        ...publicMenuItems,
+        'divider',
+        {
+          label: 'Log In',
+          to: '/login',
+          icon: (
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+          ),
+        },
+        {
+          label: 'Get Started',
+          to: '/register',
+          isHighlight: true,
+          icon: (
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+            </svg>
+          ),
+        },
+      ];
+
   return (
     <>
       <nav style={navbarStyle}>
         <div style={innerStyle}>
-          {/* Logo */}
-          <Link to="/" style={logoStyle}>
-            <div style={{
-              width: '36px',
-              height: '36px',
-              background: '#2563EB',
-              borderRadius: '10px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 4px 12px rgba(37,99,235,0.2)',
-            }}>
-              <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <span style={{
-              fontSize: '20px',
-              fontWeight: 800,
-              letterSpacing: '-0.02em',
-              color: '#0F172A',
-            }}>
-              Authen<span style={{ color: '#2563EB' }}>Tick</span>
-            </span>
-          </Link>
-
-          {/* Hamburger icon — only when authenticated */}
+          {/* Hamburger icon — left of logo */}
           <button
             id="hamburger-menu-btn"
             style={hamburgerBtnStyle}
@@ -285,6 +303,20 @@ export default function Navbar() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
+
+          {/* Logo */}
+          <Link to="/" style={logoStyle}>
+            <img src="/logo.svg" alt="AuthenTick" style={{ width: '36px', height: '36px' }} />
+            <span style={{
+              fontSize: '20px',
+              fontWeight: 500,
+              letterSpacing: '-0.01em',
+              color: '#1E293B',
+              fontFamily: "'Inter', sans-serif",
+            }}>
+              Authen<span style={{ fontWeight: 700, color: '#2563EB' }}>Tick</span>
+            </span>
+          </Link>
 
           {/* Spacer pushes nothing — rest of navbar is clean/empty */}
           <div style={{ flex: 1 }} />
@@ -322,9 +354,9 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Slide-in Drawer Menu — only for authenticated users */}
+      {/* Slide-in Drawer Menu — for all users */}
       <AnimatePresence>
-        {drawerOpen && isAuthenticated && (
+        {drawerOpen && (
           <>
             {/* Overlay */}
             <motion.div
@@ -352,26 +384,15 @@ export default function Navbar() {
                   style={{ ...logoStyle, gap: '10px' }}
                   onClick={() => setDrawerOpen(false)}
                 >
-                  <div style={{
-                    width: '36px',
-                    height: '36px',
-                    background: '#2563EB',
-                    borderRadius: '10px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                    <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
+                  <img src="/logo.svg" alt="AuthenTick" style={{ width: '36px', height: '36px' }} />
                   <span style={{
                     fontSize: '18px',
-                    fontWeight: 800,
-                    letterSpacing: '-0.02em',
-                    color: '#0F172A',
+                    fontWeight: 500,
+                    letterSpacing: '-0.01em',
+                    color: '#1E293B',
+                    fontFamily: "'Inter', sans-serif",
                   }}>
-                    Authen<span style={{ color: '#2563EB' }}>Tick</span>
+                    Authen<span style={{ fontWeight: 700, color: '#2563EB' }}>Tick</span>
                   </span>
                 </Link>
 
@@ -394,52 +415,78 @@ export default function Navbar() {
                 </button>
               </div>
 
-              {/* User Info Card */}
-              <div style={{
-                margin: '16px 24px',
-                padding: '16px',
-                background: '#F8FAFC',
-                borderRadius: '12px',
-                border: '1px solid #F1F5F9',
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <div style={{
-                    width: '40px',
-                    height: '40px',
-                    borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #2563EB, #1D4ED8)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    fontWeight: 800,
-                    fontSize: '16px',
-                    flexShrink: 0,
-                  }}>
-                    {user?.name?.charAt(0)?.toUpperCase()}
-                  </div>
-                  <div style={{ overflow: 'hidden' }}>
-                    <p style={{
-                      fontSize: '14px',
-                      fontWeight: 700,
-                      color: '#0F172A',
-                      margin: 0,
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                    }}>{user?.name}</p>
-                    <p style={{
-                      fontSize: '12px',
-                      fontWeight: 500,
-                      color: '#94A3B8',
-                      margin: 0,
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                    }}>{user?.email}</p>
+              {/* User Info Card — only for authenticated users */}
+              {isAuthenticated && (
+                <div style={{
+                  margin: '16px 24px',
+                  padding: '16px',
+                  background: '#F8FAFC',
+                  borderRadius: '12px',
+                  border: '1px solid #F1F5F9',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '50%',
+                      background: 'linear-gradient(135deg, #2563EB, #1D4ED8)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'white',
+                      fontWeight: 800,
+                      fontSize: '16px',
+                      flexShrink: 0,
+                    }}>
+                      {user?.name?.charAt(0)?.toUpperCase()}
+                    </div>
+                    <div style={{ overflow: 'hidden' }}>
+                      <p style={{
+                        fontSize: '14px',
+                        fontWeight: 700,
+                        color: '#0F172A',
+                        margin: 0,
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                      }}>{user?.name}</p>
+                      <p style={{
+                        fontSize: '12px',
+                        fontWeight: 500,
+                        color: '#94A3B8',
+                        margin: 0,
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                      }}>{user?.email}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
+
+              {/* Guest welcome — only for non-authenticated users */}
+              {!isAuthenticated && (
+                <div style={{
+                  margin: '16px 24px',
+                  padding: '16px',
+                  background: 'linear-gradient(135deg, #EFF6FF, #F8FAFC)',
+                  borderRadius: '12px',
+                  border: '1px solid #DBEAFE',
+                }}>
+                  <p style={{
+                    fontSize: '14px',
+                    fontWeight: 700,
+                    color: '#0F172A',
+                    margin: '0 0 4px 0',
+                  }}>Welcome to AuthenTick</p>
+                  <p style={{
+                    fontSize: '12px',
+                    fontWeight: 500,
+                    color: '#64748B',
+                    margin: 0,
+                  }}>Verify medicine authenticity instantly</p>
+                </div>
+              )}
 
               {/* Menu Items */}
               <div style={{ flex: 1, paddingTop: '4px', paddingBottom: '24px' }}>
@@ -465,6 +512,34 @@ export default function Navbar() {
                         <div style={iconBoxStyle(true)}>{item.icon}</div>
                         {item.label}
                       </button>
+                    );
+                  }
+
+                  // Highlighted item (e.g. Get Started)
+                  if (item.isHighlight) {
+                    return (
+                      <Link
+                        key={item.label}
+                        to={item.to}
+                        onClick={() => setDrawerOpen(false)}
+                        style={{
+                          ...menuItemStyle(false),
+                          background: '#2563EB',
+                          color: 'white',
+                          borderRadius: '12px',
+                          margin: '4px 16px',
+                          width: 'calc(100% - 32px)',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = '#1D4ED8';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = '#2563EB';
+                        }}
+                      >
+                        <div style={{ ...iconBoxStyle(false), background: 'rgba(255,255,255,0.2)', color: 'white' }}>{item.icon}</div>
+                        {item.label}
+                      </Link>
                     );
                   }
 
