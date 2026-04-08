@@ -5,11 +5,11 @@ import { verifyToken, submitReport } from '../api';
 import { useToast } from '../context/ToastContext';
 
 const statusConfig = {
-  genuine: { label: 'Authentic', animation: 'check', color: '#22C55E', bg: 'rgba(34,197,94,0.06)' },
-  suspicious: { label: 'Suspicious', animation: 'warning', color: '#F59E0B', bg: 'rgba(245,158,11,0.06)' },
-  expired: { label: 'Expired', animation: 'expired', color: '#94A3B8', bg: 'rgba(148,163,184,0.06)' },
-  recalled: { label: 'Recalled', animation: 'recalled', color: '#EF4444', bg: 'rgba(239,68,68,0.06)' },
-  invalid: { label: 'Not Authentic', animation: 'fail', color: '#EF4444', bg: 'rgba(239,68,68,0.06)' },
+  genuine: { label: 'Authentic', animation: 'check', color: 'var(--color-success)', bg: 'rgba(34,197,94,0.15)' },
+  suspicious: { label: 'Suspicious', animation: 'warning', color: 'var(--color-warning)', bg: 'rgba(245,158,11,0.15)' },
+  expired: { label: 'Expired', animation: 'expired', color: 'var(--text-muted)', bg: 'rgba(148,163,184,0.15)' },
+  recalled: { label: 'Recalled', animation: 'recalled', color: 'var(--color-danger)', bg: 'rgba(239,68,68,0.15)' },
+  invalid: { label: 'Not Authentic', animation: 'fail', color: 'var(--color-danger)', bg: 'rgba(239,68,68,0.15)' },
 };
 
 function AnimatedCheck({ color }) {
@@ -221,19 +221,19 @@ export default function Result() {
 
               {/* Scan Info + Actions */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                <div style={{ background: '#0F172A', borderRadius: '20px', padding: '24px', color: '#FFF', flex: 1 }}>
-                  <h3 style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ width: '6px', height: '6px', background: '#2563EB', borderRadius: '50%', animation: 'pulse 2s infinite' }} />
+                <div style={{ background: 'var(--bg-elevated, #0F172A)', borderRadius: '20px', padding: '24px', color: 'var(--text-primary)', flex: 1, border: '1px solid var(--border-color)' }}>
+                  <h3 style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)' }}>
+                    <span style={{ width: '6px', height: '6px', background: 'var(--color-blue)', borderRadius: '50%', animation: 'pulse 2s infinite' }} />
                     Network Log
                   </h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '14px', background: 'rgba(255,255,255,0.05)', borderRadius: '14px' }}>
-                      <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.4)', fontWeight: 700, textTransform: 'uppercase' }}>Total Scans</span>
-                      <span style={{ fontSize: '18px', fontWeight: 800, color: '#2563EB' }}>{data?.scanCount || 0}</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '14px', background: 'var(--bg-surface-hover, rgba(255,255,255,0.05))', borderRadius: '14px' }}>
+                      <span style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase' }}>Total Scans</span>
+                      <span style={{ fontSize: '18px', fontWeight: 800, color: 'var(--color-blue)' }}>{data?.scanCount || 0}</span>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '14px', background: 'rgba(255,255,255,0.05)', borderRadius: '14px' }}>
-                      <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.4)', fontWeight: 700, textTransform: 'uppercase' }}>Last Location</span>
-                      <span style={{ fontSize: '13px', fontWeight: 500 }}>{data?.lastScanLocation || 'Secure Node'}</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '14px', background: 'var(--bg-surface-hover, rgba(255,255,255,0.05))', borderRadius: '14px' }}>
+                      <span style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase' }}>Last Location</span>
+                      <span style={{ fontSize: '13px', fontWeight: 500, color: 'var(--text-primary)' }}>{data?.lastScanLocation || 'Secure Node'}</span>
                     </div>
                   </div>
                 </div>

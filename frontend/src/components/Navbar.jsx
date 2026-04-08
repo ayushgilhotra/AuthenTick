@@ -89,8 +89,8 @@ export default function Navbar() {
     width: '40px',
     height: '40px',
     borderRadius: '10px',
-    border: '1px solid #E5E7EB',
-    background: 'white',
+    border: '1px solid var(--border-color, #E5E7EB)',
+    background: 'var(--bg-surface, white)',
     cursor: 'pointer',
     transition: 'all 0.2s ease',
     flexShrink: 0,
@@ -112,7 +112,7 @@ export default function Navbar() {
     bottom: 0,
     width: '320px',
     maxWidth: '85vw',
-    background: '#FFFFFF',
+    background: 'var(--bg-surface, #FFFFFF)',
     zIndex: 210,
     boxShadow: '8px 0 30px rgba(0,0,0,0.12)',
     display: 'flex',
@@ -125,7 +125,7 @@ export default function Navbar() {
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '20px 24px',
-    borderBottom: '1px solid #F1F5F9',
+    borderBottom: '1px solid var(--border-color, #F1F5F9)',
   };
 
   const closeButtonStyle = {
@@ -136,9 +136,9 @@ export default function Navbar() {
     height: '36px',
     borderRadius: '50%',
     border: 'none',
-    background: '#F8FAFC',
+    background: 'var(--bg-surface-hover, #F8FAFC)',
     cursor: 'pointer',
-    color: '#64748B',
+    color: 'var(--text-muted, #64748B)',
     transition: 'all 0.2s ease',
   };
 
@@ -149,7 +149,7 @@ export default function Navbar() {
     padding: '14px 24px',
     fontSize: '14px',
     fontWeight: 600,
-    color: isRed ? '#EF4444' : '#334155',
+    color: isRed ? '#EF4444' : 'var(--text-primary, #334155)',
     textDecoration: 'none',
     border: 'none',
     background: 'transparent',
@@ -162,7 +162,7 @@ export default function Navbar() {
 
   const dividerStyle = {
     height: '1px',
-    background: '#F1F5F9',
+    background: 'var(--border-color, #F1F5F9)',
     margin: '8px 24px',
   };
 
@@ -173,9 +173,9 @@ export default function Navbar() {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: isRed ? 'rgba(239,68,68,0.06)' : '#F1F5F9',
+    background: isRed ? 'rgba(239,68,68,0.06)' : 'var(--bg-surface-hover, #F1F5F9)',
     flexShrink: 0,
-    color: isRed ? '#EF4444' : '#64748B',
+    color: isRed ? '#EF4444' : 'var(--text-muted, #64748B)',
   });
 
   // Public menu items (visible to everyone)
@@ -293,16 +293,16 @@ export default function Navbar() {
             style={hamburgerBtnStyle}
             onClick={() => setDrawerOpen(true)}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#F8FAFC';
-              e.currentTarget.style.borderColor = '#D1D5DB';
+              e.currentTarget.style.background = 'var(--bg-surface-hover, #F8FAFC)';
+              e.currentTarget.style.borderColor = 'var(--border-color, #D1D5DB)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'white';
-              e.currentTarget.style.borderColor = '#E5E7EB';
+              e.currentTarget.style.background = 'var(--bg-surface, white)';
+              e.currentTarget.style.borderColor = 'var(--border-color, #E5E7EB)';
             }}
             aria-label="Open menu"
           >
-            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#334155">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="var(--text-primary, #334155)">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>

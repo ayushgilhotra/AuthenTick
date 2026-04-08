@@ -339,50 +339,188 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ===== Dark Mode Overrides ===== */
-.dark body,
+
+/* --- Body & Root --- */
 html.dark body {
-  background: #0F172A;
-  color: #F1F5F9;
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
 }
 
-html.dark .saas-card,
-html.dark .premium-card {
-  background: #1E293B;
-  border-color: #334155;
+html.dark {
+  color-scheme: dark;
 }
 
-html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6 {
-  color: #F1F5F9;
+/* --- Typography --- */
+html.dark h1, html.dark h2, html.dark h3,
+html.dark h4, html.dark h5, html.dark h6 {
+  color: var(--text-primary) !important;
 }
 
-html.dark input, html.dark textarea, html.dark select {
-  background: #1E293B;
-  border-color: #334155;
-  color: #F1F5F9;
-}
-
-html.dark input::placeholder, html.dark textarea::placeholder {
-  color: #64748B;
-}
-
-html.dark .bg-gray-50, html.dark .bg-gray-100 {
-  background: #1E293B !important;
+html.dark p {
+  color: var(--text-secondary);
 }
 
 html.dark .text-dark {
-  color: #F1F5F9;
+  color: var(--text-primary) !important;
 }
 
 html.dark .text-gray {
-  color: #94A3B8;
+  color: var(--text-secondary) !important;
+}
+
+html.dark label {
+  color: var(--text-secondary) !important;
+}
+
+/* --- Cards --- */
+html.dark .saas-card,
+html.dark .premium-card {
+  background: var(--bg-surface) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4) !important;
+}
+
+html.dark .saas-card:hover,
+html.dark .premium-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+}
+
+/* --- Inputs & Forms --- */
+html.dark input,
+html.dark textarea,
+html.dark select {
+  background: var(--bg-input) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+html.dark input:focus,
+html.dark textarea:focus,
+html.dark select:focus {
+  border-color: #2563EB !important;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.15) !important;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* --- Tables --- */
+html.dark table {
+  color: var(--text-primary);
+}
+
+html.dark thead tr,
+html.dark .bg-gray-50\/50 {
+  background: var(--bg-elevated) !important;
+}
+
+html.dark thead th {
+  color: var(--text-secondary) !important;
+}
+
+html.dark tbody td {
+  color: var(--text-primary) !important;
+}
+
+html.dark tbody tr {
+  border-color: var(--border-color) !important;
+}
+
+html.dark tbody tr:hover {
+  background: var(--bg-elevated) !important;
+}
+
+html.dark .divide-gray-50 > * + * {
+  border-color: var(--border-color) !important;
+}
+
+/* --- Backgrounds --- */
+html.dark .bg-gray-50,
+html.dark .bg-gray-100,
+html.dark .bg-white {
+  background: var(--bg-surface) !important;
+}
+
+html.dark .bg-bg {
+  background: var(--bg-primary) !important;
+}
+
+/* --- Borders --- */
+html.dark .border-gray-100,
+html.dark .border-gray-50 {
+  border-color: var(--border-color) !important;
+}
+
+/* --- Buttons: Ghost/Outlined --- */
+html.dark .btn-saas-secondary {
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+html.dark .btn-saas-secondary:hover {
+  background: var(--bg-elevated) !important;
+  border-color: #475569 !important;
+}
+
+/* --- Scrollbar --- */
+html.dark ::-webkit-scrollbar-track {
+  background: var(--bg-primary);
 }
 
 html.dark ::-webkit-scrollbar-thumb {
   background: #475569;
 }
 
-/* Smooth transition for all elements in dark mode */
-*, *::before, *::after {
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #64748B;
 }
 
+/* --- Badges & Status Pills --- */
+html.dark .badge-authentic,
+html.dark [class*="bg-success/5"] {
+  background: rgba(34, 197, 94, 0.15) !important;
+  color: #22C55E !important;
+}
+
+html.dark .badge-fake,
+html.dark [class*="bg-error/5"] {
+  background: rgba(239, 68, 68, 0.15) !important;
+  color: #EF4444 !important;
+}
+
+html.dark .badge-warning,
+html.dark [class*="bg-warning/5"] {
+  background: rgba(245, 158, 11, 0.15) !important;
+  color: #F59E0B !important;
+}
+
+html.dark .badge-info {
+  background: rgba(56, 189, 248, 0.15) !important;
+  color: #38BDF8 !important;
+}
+
+/* --- Card Spacing & Typography Fixes --- */
+.saas-card h1, .saas-card h2, .saas-card h3 {
+  margin-bottom: 8px !important;
+}
+
+.saas-card p, .saas-card .description {
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+/* --- Skeleton Loads --- */
+html.dark .skeleton-shimmer {
+  background: #334155;
+}
+
+/* --- Toast Fixes --- */
+html.dark .toast-content h4 { color: white !important; }
+html.dark .toast-content p { color: rgba(255,255,255,0.7) !important; }
+
+/* Smooth transition for theme switching */
+*, *::before, *::after {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}

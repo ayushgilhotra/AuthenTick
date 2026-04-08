@@ -28,15 +28,15 @@ export default function ConfirmDialog({ isOpen, onClose, onConfirm, title, messa
               }}>
                 {icon}
               </div>
-              <h3 style={{ fontWeight: 800, fontSize: '20px', color: 'var(--text-primary, #0F172A)', margin: '0 0 8px' }}>{title}</h3>
-              <p style={{ fontSize: '14px', color: 'var(--text-secondary, #64748B)', lineHeight: 1.6, margin: 0 }}>{message}</p>
+              <h3 style={{ fontWeight: 800, fontSize: '20px', color: 'var(--text-primary)', margin: '0 0 8px' }}>{title}</h3>
+              <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>{message}</p>
             </div>
             <div style={{ display: 'flex', gap: '12px' }}>
               <button onClick={onClose}
                 style={{
                   flex: 1, padding: '14px', borderRadius: '14px', fontWeight: 700, fontSize: '14px', cursor: 'pointer',
-                  border: '1px solid var(--border-color, #E5E7EB)', background: 'transparent',
-                  color: 'var(--text-secondary, #64748B)',
+                  border: '1px solid var(--border-color)', background: 'transparent',
+                  color: 'var(--text-secondary)',
                 }}>
                 Cancel
               </button>

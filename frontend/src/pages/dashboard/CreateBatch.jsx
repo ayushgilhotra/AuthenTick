@@ -68,7 +68,7 @@ export default function CreateBatch() {
   };
 
   const modalBoxStyle = {
-    background: '#FFFFFF',
+    background: 'var(--bg-surface, #FFFFFF)',
     borderRadius: '12px',
     padding: '24px',
     width: '90%',
@@ -79,6 +79,7 @@ export default function CreateBatch() {
     boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
     position: 'relative',
     overflow: 'hidden',
+    border: '1px solid var(--border-color)',
   };
 
   const modalHeaderStyle = {
@@ -100,7 +101,7 @@ export default function CreateBatch() {
     display: 'block',
     fontSize: '10px',
     fontWeight: 700,
-    color: '#64748B',
+    color: 'var(--text-muted, #64748B)',
     textTransform: 'uppercase',
     letterSpacing: '0.1em',
     marginBottom: '8px',
@@ -141,7 +142,7 @@ export default function CreateBatch() {
     display: 'flex',
     gap: '16px',
     paddingTop: '20px',
-    borderTop: '1px solid #F1F5F9',
+    borderTop: '1px solid var(--border-color, #F1F5F9)',
     marginTop: '8px',
     flexShrink: 0,
   };
@@ -285,7 +286,7 @@ export default function CreateBatch() {
                   <h3 style={{
                     fontSize: '22px',
                     fontWeight: 800,
-                    color: '#0F172A',
+                    color: 'var(--text-primary)',
                     margin: 0,
                     letterSpacing: '-0.02em',
                     lineHeight: 1.2,
