@@ -39,11 +39,14 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/reports").permitAll()
                 .requestMatchers("/api/contact").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
+                .requestMatchers("/ws/**").permitAll()
                 // Role-based restrictions
                 .requestMatchers("/api/medicines/**").hasRole("ADMIN")
                 .requestMatchers("/api/batches/**").hasRole("ADMIN")
                 .requestMatchers("/api/products/**").hasRole("ADMIN")
                 .requestMatchers("/api/analytics/**").hasRole("ADMIN")
+                .requestMatchers("/api/audit-logs").authenticated()
+                .requestMatchers("/api/notifications/**").authenticated()
                 .requestMatchers("/api/scan-history").authenticated()
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll()
@@ -58,7 +61,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:3000"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

@@ -6,6 +6,8 @@ import { getStats, getScanActivity, getRecentScans } from '../../api';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useAuth } from '../../context/AuthContext';
 import ScanHistory from './ScanHistory';
+import { SkeletonStats, SkeletonChart } from '../../components/Skeleton';
+import EmptyState from '../../components/EmptyState';
 
 export default function DashboardHome() {
   const { user } = useAuth();
@@ -37,8 +39,9 @@ export default function DashboardHome() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-32">
-        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <SkeletonStats count={4} />
+        <SkeletonChart />
       </div>
     );
   }

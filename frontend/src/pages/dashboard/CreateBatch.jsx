@@ -212,14 +212,13 @@ export default function CreateBatch() {
                 <tr key={b.id} className="hover:bg-gray-50/30 transition-colors">
                   <td className="px-6 py-4 font-bold text-dark">{b.batchNumber}</td>
                   <td className="px-6 py-4">
-                    <p className="font-semibold text-dark leading-none">{b.medicine?.name}</p>
-                    <p className="text-[10px] font-medium text-gray/50 uppercase tracking-tight mt-1">{b.medicine?.manufacturer}</p>
+                    <p className="font-semibold text-dark leading-none">{b.medicineName}</p>
                   </td>
                   <td className="px-6 py-4 text-gray font-light">
-                    {new Date(b.expiryDate).toLocaleDateString()}
+                    {b.expiryDate ? new Date(b.expiryDate).toLocaleDateString() : 'N/A'}
                   </td>
                   <td className="px-6 py-4">
-                    <span className="font-bold text-dark">{b.quantity.toLocaleString()}</span>
+                    <span className="font-bold text-dark">{(b.quantity || 0).toLocaleString()}</span>
                     <span className="text-[10px] font-bold text-gray/30 uppercase ml-1">Units</span>
                   </td>
                   <td className="px-6 py-4">

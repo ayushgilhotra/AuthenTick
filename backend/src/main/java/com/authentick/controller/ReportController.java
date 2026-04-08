@@ -18,6 +18,8 @@ public class ReportController {
     private final ReportRepository reportRepository;
     private final ProductRepository productRepository;
     private final JwtUtil jwtUtil;
+    private final com.authentick.service.IntegrityScoreService integrityScoreService;
+    private final com.authentick.service.NotificationService notificationService;
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody ReportRequest request, @RequestHeader(value = "Authorization", required = false) String authHeader) {
@@ -50,6 +52,23 @@ public class ReportController {
                 .status(Report.ReportStatus.PENDING)
                 .build();
         reportRepository.save(report);
+
+        // Trigger auto-recall check and integrity score recalculation
+        if (product != null && product.getBatch() != null) {
+            Long batchId = product.getBatch().getId();
+            integrityScoreService.checkAutoRecall(batchId);
+            integrityScoreService.recalculate(batchId);
+
+            // Notify batch owner
+            Long ownerId = product.getBatch().getUser() != null ? product.getBatch().getUser().getId() : null;
+            if (ownerId != null) {
+                notificationService.create(ownerId,
+                        com.authentick.model.Notification.NotificationType.FAKE_REPORT,
+                        "New Fake Report",
+                        "A user reported batch " + product.getBatch().getBatchNumber() + " as suspicious.",
+                        batchId, "BATCH");
+            }
+        }
 
         return ResponseEntity.ok(Map.of("message", "Report submitted successfully"));
     }

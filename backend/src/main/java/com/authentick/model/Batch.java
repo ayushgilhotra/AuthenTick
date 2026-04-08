@@ -35,6 +35,23 @@ public class Batch {
     @Column(name = "is_recalled")
     private Boolean isRecalled = false;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private BatchStatus status = BatchStatus.ACTIVE;
+
+    @Column(name = "integrity_score")
+    @Builder.Default
+    private Integer integrityScore = 100;
+
+    @Column(name = "expiry_notified")
+    @Builder.Default
+    private Boolean expiryNotified = false;
+
+    @Column(name = "expired_notified")
+    @Builder.Default
+    private Boolean expiredNotified = false;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -45,5 +62,12 @@ public class Batch {
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
+    }
+
+    public enum BatchStatus {
+        ACTIVE,
+        EXPIRING_SOON,
+        EXPIRED,
+        RECALLED
     }
 }

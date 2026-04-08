@@ -40,6 +40,12 @@ public class BatchController {
             map.put("isRecalled", b.getIsRecalled());
             map.put("productCount", productRepository.countByBatch(b));
             map.put("createdAt", b.getCreatedAt() != null ? b.getCreatedAt().toString() : null);
+            map.put("integrityScore", b.getIntegrityScore() != null ? b.getIntegrityScore() : 100);
+            map.put("status", b.getStatus() != null ? b.getStatus().name() : "ACTIVE");
+            // Sum scan counts for this batch
+            List<Product> prods = productRepository.findByBatch(b);
+            long totalScans = prods.stream().mapToLong(p -> p.getScanCount() != null ? p.getScanCount() : 0).sum();
+            map.put("totalScans", totalScans);
             result.add(map);
         }
         return ResponseEntity.ok(result);

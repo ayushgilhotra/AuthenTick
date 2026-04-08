@@ -58,4 +58,18 @@ export const getScanHistory = () => api.get('/scan-history');
 // Account
 export const deleteAccount = () => api.delete('/settings/account');
 
+// Notifications
+export const getNotifications = () => api.get('/notifications');
+export const getUnreadCount = () => api.get('/notifications/unread-count');
+export const markNotificationRead = (id) => api.patch(`/notifications/${id}/read`);
+export const markAllNotificationsRead = () => api.patch('/notifications/read-all');
+export const deleteNotification = (id) => api.delete(`/notifications/${id}`);
+
+// Audit Logs
+export const getAuditLogs = (page = 0, size = 20, action) => {
+  const params = new URLSearchParams({ page, size });
+  if (action) params.append('action', action);
+  return api.get(`/audit-logs?${params.toString()}`);
+};
+
 export default api;

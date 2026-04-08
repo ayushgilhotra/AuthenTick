@@ -10,9 +10,9 @@ const roles = [
 ];
 
 const demoAccounts = {
-  ADMIN: { email: 'xyz@organisation.in', password: 'admin123' },
-  RETAILER: { email: 'retailer@authentick.com', password: 'retailer123' },
-  CUSTOMER: { email: 'xyz@gmail.com', password: 'demo123' },
+  ADMIN: { email: 'xyz@gmail.com', password: '123456' },
+  RETAILER: { email: 'aaa@gmail.com', password: '123456' },
+  CUSTOMER: { email: 'abc@gmail.com', password: '123456' },
 };
 
 export default function Login() {

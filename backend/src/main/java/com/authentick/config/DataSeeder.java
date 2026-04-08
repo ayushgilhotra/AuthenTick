@@ -24,11 +24,11 @@ public class DataSeeder implements CommandLineRunner {
     public void run(String... args) {
         if (userRepository.count() > 0) return; // Already seeded
 
-        // Create demo admin
+        // Create demo admin (Manufacturer)
         User admin = User.builder()
                 .name("xyz Pharma Pvt. Ltd.")
-                .email("xyz@organisation.in")
-                .password(passwordEncoder.encode("admin123"))
+                .email("xyz@gmail.com")
+                .password(passwordEncoder.encode("123456"))
                 .role(User.Role.ADMIN)
                 .build();
         admin = userRepository.save(admin);
@@ -36,17 +36,17 @@ public class DataSeeder implements CommandLineRunner {
         // Create demo retailer
         User retailer = User.builder()
                 .name("Retailer Demo")
-                .email("retailer@authentick.com")
-                .password(passwordEncoder.encode("retailer123"))
+                .email("aaa@gmail.com")
+                .password(passwordEncoder.encode("123456"))
                 .role(User.Role.RETAILER)
                 .build();
         userRepository.save(retailer);
 
         // Create demo customer
         User customer = User.builder()
-                .name("xyz")
-                .email("xyz@gmail.com")
-                .password(passwordEncoder.encode("demo123"))
+                .name("Demo Customer")
+                .email("abc@gmail.com")
+                .password(passwordEncoder.encode("123456"))
                 .role(User.Role.CUSTOMER)
                 .phone("98765*****")
                 .build();
@@ -105,6 +105,8 @@ public class DataSeeder implements CommandLineRunner {
                 .expiryDate(LocalDate.of(2023, 6, 1))
                 .quantity(2)
                 .isRecalled(false)
+                .status(Batch.BatchStatus.EXPIRED)
+                .integrityScore(85)
                 .user(admin)
                 .build();
         expiredBatch = batchRepository.save(expiredBatch);
@@ -127,6 +129,8 @@ public class DataSeeder implements CommandLineRunner {
                 .expiryDate(LocalDate.of(2026, 3, 1))
                 .quantity(2)
                 .isRecalled(true)
+                .status(Batch.BatchStatus.RECALLED)
+                .integrityScore(15)
                 .user(admin)
                 .build();
         recalledBatch = batchRepository.save(recalledBatch);
@@ -142,8 +146,8 @@ public class DataSeeder implements CommandLineRunner {
         }
 
         System.out.println("✅ Demo data seeded successfully!");
-        System.out.println("   Admin (Manufacturer): xyz@organisation.in / admin123");
-        System.out.println("   Retailer: retailer@authentick.com / retailer123");
-        System.out.println("   Customer: xyz@gmail.com / demo123");
+        System.out.println("   Manufacturer: xyz@gmail.com / 123456");
+        System.out.println("   Retailer: aaa@gmail.com / 123456");
+        System.out.println("   Customer: abc@gmail.com / 123456");
     }
 }

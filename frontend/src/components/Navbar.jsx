@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import DarkModeToggle from './DarkModeToggle';
+import NotificationBell from './NotificationBell';
 
 export default function Navbar() {
   const { user, logout, isAuthenticated } = useAuth();
@@ -53,11 +55,12 @@ export default function Navbar() {
     left: 0,
     right: 0,
     zIndex: 100,
-    background: 'rgba(255,255,255,0.92)',
+    background: 'var(--bg-primary, rgba(255,255,255,0.92))',
     backdropFilter: 'blur(12px)',
     WebkitBackdropFilter: 'blur(12px)',
-    borderBottom: '1px solid #F1F5F9',
+    borderBottom: '1px solid var(--border-color, #F1F5F9)',
     boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+    transition: 'background 0.2s ease',
   };
 
   const innerStyle = {
@@ -318,39 +321,44 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Spacer pushes nothing — rest of navbar is clean/empty */}
+          {/* Spacer */}
           <div style={{ flex: 1 }} />
 
-          {/* Auth buttons — only when NOT authenticated */}
-          {!isAuthenticated && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <Link
-                to="/login"
-                style={{
-                  fontSize: '14px',
-                  fontWeight: 600,
-                  color: '#64748B',
-                  textDecoration: 'none',
-                  transition: 'color 0.2s',
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.color = '#0F172A'}
-                onMouseLeave={(e) => e.currentTarget.style.color = '#64748B'}
-              >
-                Log In
-              </Link>
-              <Link
-                to="/register"
-                className="btn-saas-primary"
-                style={{
-                  padding: '10px 20px',
-                  fontSize: '14px',
-                  textDecoration: 'none',
-                }}
-              >
-                Get Started
-              </Link>
-            </div>
-          )}
+          {/* Right side controls */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <DarkModeToggle />
+            <NotificationBell />
+
+            {!isAuthenticated && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginLeft: '8px' }}>
+                <Link
+                  to="/login"
+                  style={{
+                    fontSize: '14px',
+                    fontWeight: 600,
+                    color: 'var(--text-secondary, #64748B)',
+                    textDecoration: 'none',
+                    transition: 'color 0.2s',
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary, #0F172A)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary, #64748B)'}
+                >
+                  Log In
+                </Link>
+                <Link
+                  to="/register"
+                  className="btn-saas-primary"
+                  style={{
+                    padding: '10px 20px',
+                    fontSize: '14px',
+                    textDecoration: 'none',
+                  }}
+                >
+                  Get Started
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </nav>
 

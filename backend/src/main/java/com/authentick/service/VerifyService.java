@@ -18,6 +18,8 @@ public class VerifyService {
 
     private final ProductRepository productRepository;
     private final ScanLogRepository scanLogRepository;
+    private final IntegrityScoreService integrityScoreService;
+    private final AuditLogService auditLogService;
 
     public VerifyResponse verify(String token, String ipAddress, String userAgent, Long userId) {
         Optional<Product> productOpt = productRepository.findByToken(token);
@@ -104,6 +106,11 @@ public class VerifyService {
         product.setScanCount((product.getScanCount() != null ? product.getScanCount() : 0) + 1);
         product.setLastScanLocation(city + ", " + country);
         productRepository.save(product);
+
+        // Recalculate batch integrity score
+        if (product.getBatch() != null) {
+            integrityScoreService.recalculate(product.getBatch().getId());
+        }
     }
 
     private VerifyResponse buildResponse(Product product, Medicine medicine, Batch batch,
