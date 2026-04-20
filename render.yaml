@@ -19,7 +19,7 @@ services:
       - key: DB_NAME
         fromDatabase:
           name: authentick-psql
-          property: databaseName
+          property: database
       - key: DATABASE_USER
         fromDatabase:
           name: authentick-psql
