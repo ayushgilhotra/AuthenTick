@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: authentick-backend
+    name: authentick-api
     runtime: docker
     env: docker
     rootDir: backend
@@ -10,23 +10,23 @@ services:
         value: prod
       - key: DB_HOST
         fromDatabase:
-          name: authentick-db
+          name: authentick-psql
           property: host
       - key: DB_PORT
         fromDatabase:
-          name: authentick-db
+          name: authentick-psql
           property: port
       - key: DB_NAME
         fromDatabase:
-          name: authentick-db
+          name: authentick-psql
           property: databaseName
       - key: DATABASE_USER
         fromDatabase:
-          name: authentick-db
+          name: authentick-psql
           property: user
       - key: DATABASE_PASSWORD
         fromDatabase:
-          name: authentick-db
+          name: authentick-psql
           property: password
       - key: JWT_SECRET
         generateValue: true
@@ -34,7 +34,7 @@ services:
         sync: false # Set this to your Vercel URL later
 
 databases:
-  - name: authentick-db
+  - name: authentick-psql
     plan: free
     databaseName: authentick
     user: authentick_user
