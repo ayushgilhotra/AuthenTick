@@ -8,10 +8,18 @@ services:
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
-      - key: DATABASE_URL
+      - key: DB_HOST
         fromDatabase:
           name: authentick-db
-          property: connectionString
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: authentick-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: authentick-db
+          property: databaseName
       - key: DATABASE_USER
         fromDatabase:
           name: authentick-db
