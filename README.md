@@ -1,158 +1,108 @@
-# AuthenTick
+AuthenTick
 
-A QR-code-based medicine authentication system designed to detect counterfeit drugs, track product scans in real-time, and manage batch verification across the pharmaceutical supply chain.
+A QR-code-based medicine authentication system to detect counterfeit drugs, track scans, and manage batch verification in real-time.
 
 Live Demo: https://authen-tick.vercel.app/
 
-## The Problem
+What is AuthenTick?
 
-Counterfeit medicines represent one of the most pressing global health challenges today. Without a reliable way to verify authenticity at the point of purchase, patients and retailers cannot distinguish genuine products from dangerous fakes. AuthenTick solves this by giving every single medicine unit its own unique digital identity through QR codes, making counterfeits detectable and impossible to forge without immediate alert.
+I built AuthenTick to solve a real problem. Counterfeit medicines are everywhere and patients have no way to know if what they're buying is real or fake. This system gives every medicine unit its own unique digital identity through QR codes. When someone scans the code, they instantly know if it's authentic, and if it's fake, we catch it right away. It's impossible to replicate without being detected.
 
-## Core Features
+The way it works is simple but powerful. Manufacturers register their batches and get unique QR codes for every package. Customers scan those codes with any phone camera to verify authenticity. Every scan is tracked with timestamps and location data, so we can spot patterns like duplicate scans or suspicious distribution hotspots.
 
-**Manufacturer Dashboard**
-Register medicine batches with complete product metadata including composition, manufacturing date, and expiry information. Secure authentication ensures only authorized personnel can access sensitive batch data.
+Core Features
 
-**Unique Product Identity**
-Every medicine unit receives a unique Product ID and cryptographic token upon batch registration. This digital fingerprint forms the foundation of the authentication system and cannot be replicated.
+I implemented a manufacturer dashboard where admins can register new medicine batches with complete product metadata including composition, manufacturing date, and expiry information. The registration process is secured so only authorized personnel get access.
 
-**QR Code Generation**
-Automatic creation of individual QR codes for every medicine package. These codes embed product verification data and scan history triggers directly into the physical package label.
+Every medicine unit gets a unique Product ID and cryptographic token. This digital fingerprint is what makes the whole system work. It cannot be replicated no matter how hard someone tries.
 
-**Real-Time Verification**
-Customers and retailers scan QR codes to instantly verify authenticity. The system returns one of three states: Authentic, Fake, or Duplicate.
+QR codes are generated automatically for every package. Each code embeds the product verification data directly, and when scanned, it triggers the verification process instantly.
 
-**Scan Tracking and Analytics**
-Every scan is logged with timestamp, geographical location, and device information. Manufacturers gain visibility into product distribution patterns and market reach through an analytics dashboard.
+The verification system returns one of three states immediately. Authentic means the product is genuine and safe. Fake means it's counterfeit and the customer is warned. Duplicate means the same package has been scanned multiple times in suspicious ways.
 
-**Duplicate Scan Detection**
-When the same medicine unit is scanned multiple times within a suspicious timeframe or from different locations, the system flags it as a duplicate and alerts both manufacturer and customer.
+Every single scan gets logged with timestamp, location, and device information. Manufacturers can see exactly where their products are being sold and how they're performing in different markets. The analytics dashboard gives real-time visibility into batch health.
 
-**Product Recall Management**
-Manufacturers can issue recall alerts for unsafe batches. Customers attempting to verify recalled products receive immediate warnings and guidance.
+If the same medicine unit gets scanned multiple times from different locations or within impossible timeframes, the system flags it as duplicate and sends alerts. Both the manufacturer and customer get notified immediately.
 
-**Expiry Date Detection**
-The system automatically checks expiry dates during verification. Products past their expiration are flagged and reported to manufacturers and health authorities.
+Manufacturers can issue product recalls for unsafe batches. If someone tries to verify a recalled product, they get an immediate warning with guidance on what to do.
 
-**Fake Medicine Reporting**
-Customers who encounter suspicious products can submit detailed reports including photos, location, and retail source. This crowdsourced data helps identify counterfeit distribution networks.
+The system automatically checks expiry dates during verification. Products past their expiration are flagged right away and reported to manufacturers and health authorities.
 
-**Batch Monitoring Dashboard**
-Real-time analytics showing scan counts, geographical heat maps, duplicate alerts, and product recall status. Manufacturers can monitor batch health and market performance at a glance.
+Customers who encounter suspicious products can file reports with photos, location details, and where they bought it. This crowdsourced data helps us build a map of where counterfeits are being distributed and how the fake drug networks operate.
 
-## Technology Stack
+The batch monitoring dashboard shows scan counts, geographical heat maps, duplicate alerts, and recall status all in one place. Manufacturers can monitor everything at a glance and spot trends instantly.
 
-**Frontend**
-React.js with Next.js for server-side rendering and static generation. Responsive design ensures seamless experience across mobile, tablet, and desktop devices. Tailwind CSS handles styling and component consistency.
+Tech Stack
 
-**Backend**
-Node.js with Express.js provides a lightweight, event-driven server. RESTful APIs handle batch registration, QR verification, scan logging, and analytics queries.
+Frontend is built with React.js and Next.js for server-side rendering. The design is responsive across mobile, tablet, and desktop devices so users get the same smooth experience everywhere. Tailwind CSS keeps the styling consistent and scalable.
 
-**Database**
-MongoDB stores batch metadata, scan logs, user reports, and analytics data. Mongoose provides schema validation and data consistency.
+Backend runs on Node.js with Express.js. It's lightweight and event-driven, handling batch registration, QR verification, scan logging, and analytics queries through RESTful APIs.
 
-**QR Technology**
-QRcode.js library generates codes client-side and server-side. Each code encodes the unique product token and verification endpoint.
+MongoDB stores all the batch metadata, scan logs, user reports, and analytics data. Mongoose keeps everything consistent with schema validation.
 
-**Authentication**
-JWT-based authentication secures manufacturer endpoints. Tokens are short-lived and refresh tokens enable long sessions without compromising security.
+QR codes are generated using the QRcode.js library. I use it both on the server and client side. Each code encodes the unique product token so verification happens securely.
 
-## User Roles
+Authentication is handled through JWT. Manufacturer endpoints are protected with short-lived tokens, and refresh tokens let users stay logged in without compromising security.
 
-**Manufacturer**
-Access the admin dashboard to register new batches, generate and download QR codes, monitor scan analytics, issue product recalls, and review fake medicine reports from the field.
+Who Can Use It
 
-**Customer and Retailer**
-Scan QR codes using any smartphone camera or dedicated app. Receive instant authenticity verification with detailed product information and expiry status.
+Manufacturers get access to the admin dashboard where they register new batches, generate QR codes, download them for printing, monitor scan analytics in real-time, issue product recalls when needed, and review all the fake medicine reports coming from customers in the field.
 
-## Getting Started
+Customers and retailers can scan QR codes using any smartphone camera or the dedicated app. They get instant verification telling them if the product is authentic, with detailed product information and expiry status included.
 
-You'll need Node.js and a MongoDB instance (local or cloud-hosted via MongoDB Atlas) before proceeding.
+Getting Started
 
-Clone the repository and navigate to the project directory.
+You'll need Node.js installed and a MongoDB instance running before you start. You can use a local MongoDB or create a free account on MongoDB Atlas for cloud hosting.
 
-```
+First, clone the repository:
+
 git clone https://github.com/ayushgilhotra/AuthenTick.git
 cd AuthenTick
-```
 
-**Setup Environment Variables**
+Next, set up your environment variables. Copy the example file and fill in your values:
 
-Copy the example configuration file and fill in your credentials.
-
-```
 cp .env.example .env
-```
 
-You will need the following variables configured:
+You'll need these variables:
 
-MONGO_URI - Connection string to your MongoDB database
-JWT_SECRET - Secret key for signing authentication tokens
-API_PORT - Port number for the backend server
-QRCODE_ENCRYPTION_KEY - Key for encoding product tokens into QR codes
+MONGO_URI is your MongoDB connection string
+JWT_SECRET is the secret key for signing tokens
+API_PORT is what port your backend runs on
+QRCODE_ENCRYPTION_KEY is used for encoding product tokens into the QR codes
 
-**Install and Run Backend**
+Navigate to the server directory, install dependencies, and start it:
 
-Navigate to the server directory, install dependencies, and start the development server.
-
-```
 cd server
 npm install
 npm run dev
-```
 
-The backend will be available at http://localhost:5000
+Your backend will run at http://localhost:5000
 
-**Install and Run Frontend**
+In a new terminal, go to the client folder and start the frontend:
 
-In a new terminal, navigate to the client directory, install dependencies, and start the development server.
-
-```
 cd ../client
 npm install
 npm run dev
-```
 
-The frontend will open at http://localhost:3000
+The frontend opens at http://localhost:3000
 
-## Deployment
+Deployment
 
-**Backend Deployment (Render, Railway, or Heroku)**
+For the backend, you can deploy to Render, Railway, or Heroku. Set the root directory to server/ and configure the start command as node src/server.js. You'll need to add these environment variables in your deployment platform:
 
-Set the root directory to server/
-
-Configure the start command as:
-```
-node src/server.js
-```
-
-Add the required environment variables:
 MONGO_URI
 JWT_SECRET
 API_PORT
 QRCODE_ENCRYPTION_KEY
 
-**Frontend Deployment (Vercel or Netlify)**
+For the frontend, Vercel or Netlify work great. Set the root directory to client/, the build command to npm run build, and the publish directory to dist/. Add this environment variable:
 
-Set the root directory to client/
+VITE_API_URL pointing to your deployed backend URL
 
-Build command:
-```
-npm run build
-```
+If you're using MongoDB Atlas for production, create a free account at atlas.mongodb.com, set up a cluster, and copy the connection string to your environment variables.
 
-Set the publish directory to dist/
+Project Structure
 
-Add the environment variable:
-VITE_API_URL - URL of your deployed backend
-
-**Database**
-
-For production, use MongoDB Atlas cloud hosting. Create a free account at atlas.mongodb.com, set up a cluster, and copy the connection string to your environment variables.
-
-## Project Structure
-
-```
 AuthenTick/
 ├── server/
 │   ├── src/
@@ -172,24 +122,23 @@ AuthenTick/
 │   ├── vite.config.js
 │   └── package.json
 └── README.md
-```
 
-## Security Considerations
+Security
 
-Manufacturer credentials are protected through JWT authentication with short token expiry times. Sensitive batch data is encrypted at rest in the database. QR codes embed cryptographic tokens that are verified server-side, preventing simple replication. Scan logs include IP addresses and device fingerprints for anomaly detection.
+I took security seriously with this project. Manufacturer credentials are protected through JWT authentication with short token expiry times. Sensitive batch data gets encrypted when stored in the database. QR codes embed cryptographic tokens that are verified on the server side, so simple replication doesn't work. Scan logs include IP addresses and device fingerprints so we can detect anomalies and suspicious patterns.
 
-## Future Enhancements
+Future Plans
 
-Integration with government health databases for real-time recall data. Machine learning models to predict counterfeit hotspots based on scan patterns. Blockchain integration for immutable batch verification records. Mobile app with offline scanning capability. SMS notifications for product recalls and duplicate scans.
+I'm thinking about integrating with government health databases for real-time recall data. Machine learning models could analyze scan patterns to predict where counterfeits are being distributed. Blockchain could be added for immutable batch verification records. A mobile app with offline scanning capability would be useful. SMS notifications for recalls and duplicate scans would make the system even more responsive.
 
-## Contributing
+Contributing
 
-This is a production project but contributions are welcome. Please fork the repository, create a feature branch, and submit a pull request with your improvements.
+This is a production project but I'm open to contributions. Just fork the repository, create a feature branch, and submit a pull request with your improvements.
 
-## License
+License
 
-This project is open source and available under the MIT License.
+AuthenTick is open source and available under the MIT License.
 
-## Contact
+Questions or Ideas
 
-For questions, feature requests, or to report security vulnerabilities, please reach out through the GitHub repository or contact the maintainer directly.
+If you have questions, feature requests, or want to report security vulnerabilities, reach out through the GitHub repository or contact me directly.
